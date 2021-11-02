@@ -16,6 +16,8 @@ from utils.dice_score import dice_loss
 from evaluate import evaluate
 from unet import UNet
 
+#dir_img = Path('../CT-ORG/Training_jpg/test5/')
+#dir_mask = Path('../CT-ORG/Training_jpg/mask5/')
 dir_img = Path('./data/imgs/')
 dir_mask = Path('./data/masks/')
 dir_checkpoint = Path('./checkpoints/')
@@ -90,6 +92,8 @@ def train_net(net,
 
                 with torch.cuda.amp.autocast(enabled=amp):
                     masks_pred = net(images)
+                    print(masks_pred.shape) # torch.Size([5, 2, 256, 256])
+                    print(true_masks.shape) # torch.Size([5, 256, 256])
                     loss = criterion(masks_pred, true_masks) \
                            + dice_loss(F.softmax(masks_pred, dim=1).float(),
                                        F.one_hot(true_masks, net.n_classes).permute(0, 3, 1, 2).float(),
