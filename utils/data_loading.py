@@ -32,6 +32,9 @@ class BasicDataset(Dataset):
         assert newW > 0 and newH > 0, 'Scale is too small, resized images would have no pixel'
         pil_img = pil_img.resize((newW, newH))
         img_ndarray = np.asarray(pil_img)
+        
+        if is_mask :
+            img_ndarray = img_ndarray / 255
 
         if img_ndarray.ndim == 2 and not is_mask:
             img_ndarray = img_ndarray[np.newaxis, ...]
@@ -59,7 +62,6 @@ class BasicDataset(Dataset):
         #img_file = list(self.images_dir.glob(name + '.*'))
         mask_file = list(self.masks_dir.glob(name + '.jpg'))
         img_file = list(self.images_dir.glob(name + '.jpg'))
-        
 
         assert len(mask_file) == 1, f'Either no mask or multiple masks found for the ID {name}: {mask_file}'
         assert len(img_file) == 1, f'Either no image or multiple images found for the ID {name}: {img_file}'

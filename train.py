@@ -17,7 +17,7 @@ from evaluate import evaluate
 from unet import UNet
 
 dir_img = Path('../CT-ORG/Training_jpg/test5/')
-dir_mask = Path('../CT-ORG/Training_jpg/mask_none/')
+dir_mask = Path('../CT-ORG/Training_jpg/mask5/')
 #dir_img = Path('./data/imgs/')
 #dir_mask = Path('./data/masks/')
 dir_checkpoint = Path('./checkpoints/')

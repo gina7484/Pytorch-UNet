@@ -81,9 +81,11 @@ if __name__ == '__main__':
     in_files = args.input
     out_files = get_output_filenames(args)
 
-    net = UNet(n_channels=3, n_classes=2)
+    net = UNet(n_channels=1, n_classes=2)
+    # net = torch.hub.load('milesial/Pytorch-UNet', 'unet_carvana', pretrained=True)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    device = torch.device('cpu')
     logging.info(f'Loading model {args.model}')
     logging.info(f'Using device {device}')
 
