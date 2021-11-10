@@ -2,6 +2,7 @@ import argparse
 import logging
 import sys
 from pathlib import Path
+import gc
 
 import torch
 import torch.nn as nn
@@ -92,8 +93,8 @@ def train_net(net,
 
                 with torch.cuda.amp.autocast(enabled=amp):
                     masks_pred = net(images)
-                    print(masks_pred.shape) # torch.Size([5, 2, 256, 256])
-                    print(true_masks.shape) # torch.Size([5, 256, 256])
+                    #print(masks_pred.shape) # torch.Size([5, 2, 256, 256])
+                    #print(true_masks.shape) # torch.Size([5, 256, 256])
                     # print(true_masks)
 
                     loss = criterion(masks_pred, true_masks) \
@@ -169,6 +170,8 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    torch.cuda.empty_cache()
+    gc.collect()
     logging.info(f'Using device {device}')
 
     # Change here to adapt to your data
