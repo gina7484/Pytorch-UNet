@@ -3,6 +3,7 @@ import logging
 import sys
 from pathlib import Path
 import gc
+from datetime import datetime
 
 import torch
 import torch.nn as nn
@@ -21,7 +22,7 @@ dir_img = Path('../2D/training/image/')
 dir_mask = Path('../2D/training/label/')
 #dir_img = Path('./data/imgs/')
 #dir_mask = Path('./data/masks/')
-dir_checkpoint = Path('./checkpoints/')
+checkpoint_parent="./checkpoints/"
 
 
 def train_net(net,
@@ -67,6 +68,12 @@ def train_net(net,
         Mixed Precision: {amp}
     ''')
 
+    # create checkpoint directory
+    now=datetime.now()
+    now_string = now.strftime("run-%Y%m%d_%H%M%S/")
+    dir_checkpoint = Path(checkpoint_parent+now_string)
+    Path(dir_checkpoint).mkdir(parents=True, exist_ok=True)
+    
     # 4. Set up the optimizer, the loss, the learning rate scheduler and the loss scaling for AMP
     optimizer = optim.RMSprop(net.parameters(), lr=learning_rate, weight_decay=1e-8, momentum=0.9)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', patience=2)  # goal: maximize Dice score
@@ -145,7 +152,6 @@ def train_net(net,
                         })
 
         if save_checkpoint:
-            Path(dir_checkpoint).mkdir(parents=True, exist_ok=True)
             torch.save(net.state_dict(), str(dir_checkpoint / 'checkpoint_epoch{}.pth'.format(epoch + 1)))
             logging.info(f'Checkpoint {epoch + 1} saved!')
 
