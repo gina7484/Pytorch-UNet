@@ -15,7 +15,7 @@ from utils.data_loading import BasicDataset
 from unet import UNet
 from utils.utils import plot_img_and_mask
 
-inputdir = "../2D/testing/prac"
+inputdir = "../2D/testing/image/"
 outputdir = "../2D_result/"
 
 def predict_img(net,
@@ -91,6 +91,7 @@ if __name__ == '__main__':
     # net = torch.hub.load('milesial/Pytorch-UNet', 'unet_carvana', pretrained=True)
 
     device = torch.device('cpu')
+    print("Loading model and using device")
     logging.info(f'Loading model {args.model}')
     logging.info(f'Using device {device}')
 
@@ -106,6 +107,9 @@ if __name__ == '__main__':
     
 
     for filename in os.listdir(inputdir):
+        if not filename.endswith('.jpg'):
+            continue
+        
         f = os.path.join(inputdir,filename)
         logging.info(f'\nPredicting image {filename} ...')
         img = Image.open(f)
