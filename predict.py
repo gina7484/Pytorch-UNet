@@ -15,7 +15,7 @@ from utils.data_loading import BasicDataset
 from unet import UNet
 from utils.utils import plot_img_and_mask
 
-inputdir = "../2D/testing/prac"
+inputdir = "../2D/training/test_image"
 outputdir = "../2D_result/"
 
 def predict_img(net,
