@@ -3,6 +3,7 @@ import logging
 import os
 from datetime import datetime
 from pathlib import Path
+import json
 
 import shutil
 import numpy as np
@@ -83,17 +84,23 @@ def mask_to_image(mask: np.ndarray):
 
 
 if __name__ == '__main__':
+    parameter_dict={}
     args = get_args()
     #in_files = args.input
     #out_files = get_output_filenames(args)
 
     net = UNet(n_channels=1, n_classes=2)
+    parameter_dict['model']='UNet'
     # net = torch.hub.load('milesial/Pytorch-UNet', 'unet_carvana', pretrained=True)
+
+    parameter_dict['scale']=args.scale
+    parameter_dict['mask_threshold']=args.mask-threshold
 
     device = torch.device('cpu')
     print("Loading model and using device")
     logging.info(f'Loading model {args.model}')
     logging.info(f'Using device {device}')
+    parameter_dict['checkpoint_path']=args.model
 
     net.to(device=device)
     net.load_state_dict(torch.load(args.model, map_location=device))
@@ -104,7 +111,12 @@ if __name__ == '__main__':
     now_string = now.strftime("output-%Y%m%d_%H%M%S/")
     dir_output = Path(outputdir+now_string)
     Path(dir_output).mkdir(parents=True, exist_ok=True)
-    
+    parameter_dict['date']=now.strftime("%Y%m%d_%H%M%S/")
+    parameter_dict['output_dir']=outputdir+now_string
+
+    # save parameters as json file
+    with open(outputdir+now_string+"log.json","w") as fp:
+        json.dump(parameter_dict,fp)
 
     for filename in os.listdir(inputdir):
         if not filename.endswith('.jpg'):
