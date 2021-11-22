@@ -1,6 +1,7 @@
 import albumentations as A
 import os
 import cv2
+import imageio
 import shutil
 from pathlib import Path
 from PIL import Image
@@ -16,26 +17,29 @@ transform = A.Compose([
 
 image_dir = '../2D/training/image/'
 mask_dir = '../2D/training/label/'
-#image_dir = 'CT-ORG/Training_jpg/test/'
-#mask_dir = 'CT-ORG/Training_jpg/mask/'
+#image_dir = '../2D/training/test_image/'
+#mask_dir = '../2D/training/test_label/'
+
 aug_image_dir = Path('../2D_aug/aug_image/')
 aug_mask_dir = Path('../2D_aug/aug_mask/')
-
-transformed_images = []
-transformed_masks = []
+#aug_image_dir = Path('../2D_aug/test_aug_image/')
+#aug_mask_dir = Path('../2D_aug/test_aug_mask/')
 
 for image_file, mask_file in zip(sorted(os.listdir(image_dir)), sorted(os.listdir(mask_dir))):
     print(image_file, mask_file)
 
     # load image and mask
-    image = cv2.imread(image_dir + image_file)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    mask = cv2.imread(mask_dir + mask_file)
+    image = imageio.imread(image_dir + image_file)
+    #print(image.shape)
+    mask = imageio.imread(mask_dir + mask_file)
+    #print(mask.shape)
 
     # transform image and mask
     transformed = transform(image=image, mask=mask)
     transformed_image = transformed['image']
     transformed_mask = transformed['mask']
+    print(transformed_image.shape)
+    print(transformed_mask.shape)
 
     # store augmented image and mask
     aug_img = Image.fromarray(transformed_image)
@@ -44,41 +48,3 @@ for image_file, mask_file in zip(sorted(os.listdir(image_dir)), sorted(os.listdi
     aug_mask = Image.fromarray(transformed_mask)
     aug_mask.save('aug_' + mask_file)
     shutil.move('aug_' + mask_file, aug_mask_dir)
-
-    #transformed_images.append(transformed_image)
-    #transformed_masks.append(transformed_mask)
-
-    '''
-    if image is not None:
-            plt.figure()
-            plt.imshow(image.astype(np.uint8))
-            plt.axis('off')
-            plt.show()
-
-    if transformed_image is not None:
-            plt.figure()
-            plt.imshow(transformed_image.astype(np.uint8))
-            plt.axis('off')
-            plt.show()
-
-    if mask is not None:
-            plt.figure()
-            plt.imshow(mask.astype(np.uint8))
-            plt.axis('off')
-            plt.show()
-
-    if transformed_mask is not None:
-            plt.figure()
-            plt.imshow(transformed_mask.astype(np.uint8))
-            plt.axis('off')
-            plt.show()
-    '''
-
-'''
-for t in transformed_images:
-    if t is not None:
-            plt.figure()
-            plt.imshow(t.astype(np.uint8))
-            plt.axis('off')
-            plt.show()
-'''
