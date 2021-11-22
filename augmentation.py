@@ -14,10 +14,10 @@ transform = A.Compose([
     #A.OpticalDistortion(p=1),
 ])
 
-image_dir = '../2D/training/test_image/'
-mask_dir = '../2D/training/test_label/'
-#image_dir = 'CT-ORG/Training_jpg/test5/'
-#mask_dir = 'CT-ORG/Training_jpg/mask5/'
+#image_dir = '../2D/training/test_image/'
+#mask_dir = '../2D/training/test_label/'
+image_dir = 'CT-ORG/Training_jpg/test/'
+mask_dir = 'CT-ORG/Training_jpg/mask/'
 aug_image_dir = Path('../2D_aug/aug_image/')
 aug_mask_dir = Path('../2D_aug/aug_mask/')
 
@@ -43,12 +43,21 @@ for image_file, mask_file in zip(os.listdir(image_dir), os.listdir(mask_dir)):
     transformed_image = transformed['image']
     transformed_mask = transformed['mask']
 
-    # store augmented image and mask
-    aug_img = mask_to_image(transformed_image)
+    if transformed_image is not None:
+            plt.figure()
+            plt.imshow(transformed_image.astype(np.uint8))
+            plt.axis('off')
+            plt.show()
+
+    aug_img = Image.fromarray(transformed_image)
     aug_img.save('aug_' + image_file)
+
+    # store augmented image and mask
+    #aug_img = mask_to_image(transformed_image)
+    #aug_img.save('aug_' + image_file)
     #shutil.move('aug_' + image_file, aug_image_dir)
-    aug_mask = mask_to_image(transformed_mask)
-    aug_mask.save('aug_' + mask_file)
+    #aug_mask = mask_to_image(transformed_mask)
+    #aug_mask.save('aug_' + mask_file)
     #shutil.move('aug_' + mask_file, aug_mask_dir)
 
     #transformed_images.append(transformed_image)
