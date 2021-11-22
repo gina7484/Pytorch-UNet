@@ -8,29 +8,23 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 transform = A.Compose([
-    A.ElasticTransform(p=0.3),
-    A.GridDistortion(p=0.3),
-    A.HorizontalFlip(p=0.3),
+    A.ElasticTransform(p=0.5),
+    A.GridDistortion(p=0.5),
+    A.HorizontalFlip(p=0.5),
     #A.OpticalDistortion(p=1),
 ])
 
-#image_dir = '../2D/training/test_image/'
-#mask_dir = '../2D/training/test_label/'
-image_dir = 'CT-ORG/Training_jpg/test/'
-mask_dir = 'CT-ORG/Training_jpg/mask/'
+image_dir = '../2D/training/image/'
+mask_dir = '../2D/training/label/'
+#image_dir = 'CT-ORG/Training_jpg/test/'
+#mask_dir = 'CT-ORG/Training_jpg/mask/'
 aug_image_dir = Path('../2D_aug/aug_image/')
 aug_mask_dir = Path('../2D_aug/aug_mask/')
 
 transformed_images = []
 transformed_masks = []
 
-def mask_to_image(mask: np.ndarray):
-    if mask.ndim == 2:
-        return Image.fromarray((mask * 255).astype(np.uint8))
-    elif mask.ndim == 3:
-        return Image.fromarray((np.argmax(mask, axis=0) * 255 / mask.shape[0]).astype(np.uint8))
-
-for image_file, mask_file in zip(os.listdir(image_dir), os.listdir(mask_dir)):
+for image_file, mask_file in zip(sorted(os.listdir(image_dir)), sorted(os.listdir(mask_dir))):
     print(image_file, mask_file)
 
     # load image and mask
@@ -43,22 +37,13 @@ for image_file, mask_file in zip(os.listdir(image_dir), os.listdir(mask_dir)):
     transformed_image = transformed['image']
     transformed_mask = transformed['mask']
 
-    if transformed_image is not None:
-            plt.figure()
-            plt.imshow(transformed_image.astype(np.uint8))
-            plt.axis('off')
-            plt.show()
-
+    # store augmented image and mask
     aug_img = Image.fromarray(transformed_image)
     aug_img.save('aug_' + image_file)
-
-    # store augmented image and mask
-    #aug_img = mask_to_image(transformed_image)
-    #aug_img.save('aug_' + image_file)
-    #shutil.move('aug_' + image_file, aug_image_dir)
-    #aug_mask = mask_to_image(transformed_mask)
-    #aug_mask.save('aug_' + mask_file)
-    #shutil.move('aug_' + mask_file, aug_mask_dir)
+    shutil.move('aug_' + image_file, aug_image_dir)
+    aug_mask = Image.fromarray(transformed_mask)
+    aug_mask.save('aug_' + mask_file)
+    shutil.move('aug_' + mask_file, aug_mask_dir)
 
     #transformed_images.append(transformed_image)
     #transformed_masks.append(transformed_mask)
