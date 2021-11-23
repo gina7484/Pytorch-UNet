@@ -18,15 +18,15 @@ from utils.dice_score import dice_loss
 from evaluate import evaluate
 from unet import UNet
 
-#dir_img = Path('../2D/training/image/')
-#dir_mask = Path('../2D/training/label/')
-dir_img = Path('../2D/training/test_image/')
-dir_mask = Path('../2D/training/test_label/')
+dir_img = Path('../2D/training/image/')
+dir_mask = Path('../2D/training/label/')
+#dir_img = Path('../2D/training/test_image/')
+#dir_mask = Path('../2D/training/test_label/')
 
-#dir_aug_img = Path('../2D_aug/aug_image/')
-#dir_aug_mask = Path('../2D_aug/aug_mask/')
-dir_aug_img = Path('../2D_aug/test_aug_image/')
-dir_aug_mask = Path('../2D_aug/test_aug_mask/')
+dir_aug_img = Path('../2D_aug/aug_image/')
+dir_aug_mask = Path('../2D_aug/aug_mask/')
+#dir_aug_img = Path('../2D_aug/test_aug_image/')
+#dir_aug_mask = Path('../2D_aug/test_aug_mask/')
 checkpoint_parent="./checkpoints/"
 
 
