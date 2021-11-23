@@ -7,10 +7,12 @@ from PIL import Image
 from matplotlib import pyplot as plt
 import numpy as np
 
+percentage = 0.8
+
 transform = A.Compose([
-    A.ElasticTransform(p=0.5),
-    A.GridDistortion(p=0.5),
-    A.HorizontalFlip(p=0.5),
+    A.ElasticTransform(p=percentage),
+    A.GridDistortion(p=percentage),
+    A.HorizontalFlip(p=percentage),
     #A.OpticalDistortion(p=1),
 ])
 
@@ -18,8 +20,8 @@ image_dir = '../2D/training/image/'
 mask_dir = '../2D/training/label/'
 #image_dir = 'CT-ORG/Training_jpg/test/'
 #mask_dir = 'CT-ORG/Training_jpg/mask/'
-aug_image_dir = Path('../2D_aug/aug_image/')
-aug_mask_dir = Path('../2D_aug/aug_mask/')
+aug_image_dir = Path('../2D_aug/aug_image_'+str(percentage)+'/')
+aug_mask_dir = Path('../2D_aug/aug_mask_'+str(percentage)+'/')
 
 transformed_images = []
 transformed_masks = []
