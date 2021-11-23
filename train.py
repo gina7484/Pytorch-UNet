@@ -20,8 +20,13 @@ from unet import UNet
 
 dir_img = Path('../2D/training/image/')
 dir_mask = Path('../2D/training/label/')
-dir_aug_img = Path('./data/imgs/')
-dir_aug_mask = Path('./data/masks/')
+#dir_img = Path('../2D/training/test_image/')
+#dir_mask = Path('../2D/training/test_label/')
+
+dir_aug_img = Path('../2D_aug/aug_image/')
+dir_aug_mask = Path('../2D_aug/aug_mask/')
+#dir_aug_img = Path('../2D_aug/test_aug_image/')
+#dir_aug_mask = Path('../2D_aug/test_aug_mask/')
 checkpoint_parent="./checkpoints/"
 
 
@@ -37,6 +42,7 @@ def train_net(net,
     # 1. Create dataset
     try:
         dataset = CarvanaDataset(dir_img, dir_mask, img_scale)
+        augDataset = CarvanaDataset(dir_aug_img, dir_aug_mask, img_scale)
     except (AssertionError, RuntimeError):
         dataset = BasicDataset(dir_img, dir_mask, img_scale)
         augDataset = BasicDataset(dir_aug_img, dir_aug_mask, img_scale)
