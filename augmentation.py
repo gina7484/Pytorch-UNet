@@ -17,7 +17,7 @@ transform = A.Compose([
     #A.OpticalDistortion(p=1),
 ])
 
-image_dir = '../2D/training/image/'
+image_dir = '../2D/training/image-kidney/'
 mask_dir = '../2D/training/label-kidney/'
 #image_dir = 'CT-ORG/Training_jpg/test/'
 #mask_dir = 'CT-ORG/Training_jpg/mask/'
