@@ -8,7 +8,7 @@ from PIL import Image
 from matplotlib import pyplot as plt
 import numpy as np
 
-percentage = 0.8
+percentage = 0.5
 
 transform = A.Compose([
     A.ElasticTransform(p=percentage),
@@ -18,11 +18,11 @@ transform = A.Compose([
 ])
 
 image_dir = '../2D/training/image/'
-mask_dir = '../2D/training/label/'
+mask_dir = '../2D/training/label-kidney/'
 #image_dir = 'CT-ORG/Training_jpg/test/'
 #mask_dir = 'CT-ORG/Training_jpg/mask/'
-aug_image_dir = Path('../2D_aug/aug_image_'+str(percentage)+'/')
-aug_mask_dir = Path('../2D_aug/aug_mask_'+str(percentage)+'/')
+aug_image_dir = Path('../2D_aug/kidney/aug_image_'+str(percentage)+'/')
+aug_mask_dir = Path('../2D_aug/kidney/aug_mask_'+str(percentage)+'/')
 
 transformed_images = []
 transformed_masks = []
