@@ -18,15 +18,10 @@ from utils.dice_score import dice_loss
 from evaluate import evaluate
 from unet import UNet
 
-dir_img = Path('../2D/training/image/')
-dir_mask = Path('../2D/training/label/')
-#dir_img = Path('../2D/training/test_image/')
-#dir_mask = Path('../2D/training/test_label/')
-
-dir_aug_img = Path('../2D_aug/aug_image_0.5/')
-dir_aug_mask = Path('../2D_aug/aug_mask_0.5/')
-#dir_aug_img = Path('../2D_aug/test_aug_image/')
-#dir_aug_mask = Path('../2D_aug/test_aug_mask/')
+dir_aug_img = Path('./data/aug_imgs/')
+dir_aug_mask = Path('./data/aug_masks/')
+dir_img = Path('./data/imgs/')
+dir_mask = Path('./data/masks/')
 checkpoint_parent="./checkpoints/"
 
 
@@ -60,7 +55,7 @@ def train_net(net,
     val_loader = DataLoader(val_set, shuffle=False, drop_last=True, **loader_args)
 
     # (Initialize logging)
-    experiment = wandb.init(project='U-Net', resume='allow', entity="ginasohn")
+    experiment = wandb.init(project='Fusion-Net', resume='allow', anonymous='must')
     experiment.config.update(dict(epochs=epochs, batch_size=batch_size, learning_rate=learning_rate,
                                   val_percent=val_percent, save_checkpoint=save_checkpoint, img_scale=img_scale,
                                   amp=amp))
