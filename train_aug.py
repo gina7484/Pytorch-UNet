@@ -20,6 +20,8 @@ from unet import UNet
 
 dir_img = Path('./data/imgs/')
 dir_mask = Path('./data/masks/')
+dir_aug_img = Path('./data/aug_imgs/')
+dir_aug_mask = Path('./data/aug_masks/')
 checkpoint_parent="./checkpoints/"
 
 
