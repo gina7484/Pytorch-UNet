@@ -16,9 +16,6 @@ from utils.data_loading import BasicDataset
 from unet import UNet
 from utils.utils import plot_img_and_mask
 
-inputdir = "../2D/testing/image/"
-outputdir = "../2D_result/"
-
 def predict_img(net,
                 full_img,
                 device,
@@ -55,12 +52,12 @@ def get_args():
     parser = argparse.ArgumentParser(description='Predict masks from input images')
     parser.add_argument('--model', '-m', default='MODEL.pth', metavar='FILE',
                         help='Specify the file in which the model is stored')
-    #parser.add_argument('--input', '-i', metavar='INPUT', nargs='+', help='Filenames of input images', required=True)
-    #parser.add_argument('--output', '-o', metavar='INPUT', nargs='+', help='Filenames of output images')
+    parser.add_argument('--input_dir', '-i', type=str, help='Path to directory with input images', required=True)
+    parser.add_argument('--output_dir', '-o',type=str, help='Path to directory to store output images', required=True)
     parser.add_argument('--viz', '-v', action='store_true',
                         help='Visualize the images as they are processed')
-    parser.add_argument('--no-save', '-n', action='store_true', help='Do not save the output masks')
-    parser.add_argument('--mask-threshold', '-t', type=float, default=0.5,
+    parser.add_argument('--no_save', '-n', action='store_true', help='Do not save the output masks')
+    parser.add_argument('--mask_threshold', '-t', type=float, default=0.5,
                         help='Minimum probability value to consider a mask pixel white')
     parser.add_argument('--scale', '-s', type=float, default=0.5,
                         help='Scale factor for the input images')
@@ -89,12 +86,15 @@ if __name__ == '__main__':
     #in_files = args.input
     #out_files = get_output_filenames(args)
 
+    inputdir = args.input_dir
+    outputdir = args.output_dir
+
     net = UNet(n_channels=1, n_classes=2)
     parameter_dict['model']='UNet'
     # net = torch.hub.load('milesial/Pytorch-UNet', 'unet_carvana', pretrained=True)
 
     parameter_dict['scale']=args.scale
-    parameter_dict['mask_threshold']=args.mask-threshold
+    parameter_dict['mask_threshold']=args.mask_threshold
 
     device = torch.device('cpu')
     print("Loading model and using device")
