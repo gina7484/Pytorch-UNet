@@ -11,10 +11,7 @@ Customized implementation of the [U-Net](https://arxiv.org/abs/1505.04597) in Py
 
 - [Getting Started](#getting-started)
 - [Prepare Dataset](#prepare-dataset)
-- [Usage](#usage)
-  - [Docker](#docker)
-  - [Training](#training)
-  - [Prediction](#prediction)
+- [Train](#train)
 - [Weights & Biases](#weights--biases)
 - [Pretrained model](#pretrained-model)
 - [Data](#data)
@@ -39,16 +36,11 @@ pip install -r requirements.txt
 ```bash
 Pytorch-UNet
 |_ data
-    |_  imgs : directory with train input images
-    |_  masks : directory with train masks (labels)
-    |_  aug_imgs : directory with augmented train input images
-    |_  aug_masks : directory with augmented train masks (labels)
+    |_  imgs: directory with train input images
+    |_  masks: directory with train masks (labels)
+    |_  aug_imgs: directory with augmented train input images
+    |_  aug_masks: directory with augmented train masks (labels)
 ```
-
-This model was trained from scratch with 5k images and scored a [Dice coefficient](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient) of 0.988423 on over 100k test images.
-
-It can be easily used for multiclass segmentation, portrait segmentation, medical segmentation, ...
-
 
 ## Usage
 **Note : Use Python 3.6 or newer**
