@@ -64,7 +64,7 @@ In this folder, weights of each epoch is stored by .pth file format.
 
 checkout ```fusion``` branch:
 ```bash
-    git checkout fusion
+git checkout fusion
 ```
 
 command for training:
@@ -79,6 +79,9 @@ python train_aug.py --epochs 30 --batch-size 32 --learning-rate 0.0001 --amp --s
 
 After training, ```/run-2021XXXX_XXXXXX/``` folder is created under ```./checkpoints/```.
 In this folder, weights of each epoch is stored by .pth file format.
+
+### Adjusting Training Options
+
 
 
 ## Weights & Biases
