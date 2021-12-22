@@ -42,10 +42,10 @@ Pytorch-UNet
 ```
 
 ## Train
-Move to the branch according to which model you would like to train
+Move to the branch according to which model you would like to train.
 
 ### For Basic U-Net 
-this is the master branch. No need to checkout
+This is the master branch. No need to checkout.
 
 command for training:
 ```bash
@@ -60,30 +60,26 @@ python train_aug.py --epochs 30 --batch-size 32 --learning-rate 0.0001 --amp --s
 After training, ```/run-2021XXXX_XXXXXX/``` folder is created under ```./checkpoints/```.
 In this folder, weights of each epoch is stored by .pth file format.
 
-```console
-> python predict.py -h
-usage: predict.py [-h] [--model FILE] --input INPUT [INPUT ...] 
-                  [--output INPUT [INPUT ...]] [--viz] [--no-save]
-                  [--mask-threshold MASK_THRESHOLD] [--scale SCALE]
+### U-Net with Residual layers and Summation-based skip connection
 
-Predict masks from input images
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --model FILE, -m FILE
-                        Specify the file in which the model is stored
-  --input INPUT [INPUT ...], -i INPUT [INPUT ...]
-                        Filenames of input images
-  --output INPUT [INPUT ...], -o INPUT [INPUT ...]
-                        Filenames of output images
-  --viz, -v             Visualize the images as they are processed
-  --no-save, -n         Do not save the output masks
-  --mask-threshold MASK_THRESHOLD, -t MASK_THRESHOLD
-                        Minimum probability value to consider a mask pixel white
-  --scale SCALE, -s SCALE
-                        Scale factor for the input images
+checkout ```fusion``` branch:
+```bash
+    git checkout fusion
 ```
-You can specify which model file to use with `--model MODEL.pth`.
+
+command for training:
+```bash
+python train.py --epochs 30 --batch-size 16 --learning-rate 0.0001 --amp --scale 0.5 --validation 15.0
+```
+
+If you want to apply data augmentation, use this command:
+```bash
+python train_aug.py --epochs 30 --batch-size 32 --learning-rate 0.0001 --amp --scale 0.5 --validation 15.0
+```
+
+After training, ```/run-2021XXXX_XXXXXX/``` folder is created under ```./checkpoints/```.
+In this folder, weights of each epoch is stored by .pth file format.
+
 
 ## Weights & Biases
 
