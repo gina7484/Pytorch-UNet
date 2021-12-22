@@ -45,17 +45,21 @@ Pytorch-UNet
 ## Train
 Move to the branch according to which model you would like to train
 
-### Prediction
+### For Basic U-Net 
+this is the master branch. No need to checkout
 
-After training your model and saving it to `MODEL.pth`, you can easily test the output masks on your images via the CLI.
+command for training:
+```bash
+python train.py --epochs 30 --batch-size 16 --learning-rate 0.0001 --amp --scale 0.5 --validation 15.0
+```
 
-To predict a single image and save it:
+If you want to apply data augmentation, use this command:
+```bash
+python train_aug.py --epochs 30 --batch-size 32 --learning-rate 0.0001 --amp --scale 0.5 --validation 15.0
+```
 
-`python predict.py -i image.jpg -o output.jpg`
-
-To predict a multiple images and show them without saving them:
-
-`python predict.py -i image1.jpg image2.jpg --viz --no-save`
+After training, ```/run-2021XXXX_XXXXXX/``` folder is created under ```./checkpoints/```.
+In this folder, weights of each epoch is stored by .pth file format.
 
 ```console
 > python predict.py -h
