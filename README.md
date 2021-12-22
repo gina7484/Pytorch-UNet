@@ -9,7 +9,7 @@
 
 Customized implementation of the [U-Net](https://arxiv.org/abs/1505.04597) in PyTorch for Kaggle's [Carvana Image Masking Challenge](https://www.kaggle.com/c/carvana-image-masking-challenge) from high definition images.
 
-- [Getting Started](#quick-start-using-docker)
+- [Getting Started](#getting-started)
 - [Description](#description)
 - [Usage](#usage)
   - [Docker](#docker)
@@ -19,7 +19,7 @@ Customized implementation of the [U-Net](https://arxiv.org/abs/1505.04597) in Py
 - [Pretrained model](#pretrained-model)
 - [Data](#data)
 
-## Quick start using Docker
+## Getting Started
 
 1. [Install Docker 19.03 or later:](https://docs.docker.com/get-docker/)
 ```bash
