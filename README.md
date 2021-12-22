@@ -10,7 +10,7 @@
 Customized implementation of the [U-Net](https://arxiv.org/abs/1505.04597) in PyTorch for Kaggle's [Carvana Image Masking Challenge](https://www.kaggle.com/c/carvana-image-masking-challenge) from high definition images.
 
 - [Getting Started](#getting-started)
-- [Description](#description)
+- [Prepare Dataset](#prepare-dataset)
 - [Usage](#usage)
   - [Docker](#docker)
   - [Training](#training)
@@ -35,7 +35,16 @@ git clone https://github.com/gina7484/Pytorch-UNet.git
 pip install -r requirements.txt
 ```
 
-## Description
+## Prepare Dataset
+```bash
+Pytorch-UNet
+|_ data
+    |_  imgs -directory with train input images
+    |_  masks -directory with train masks (labels)
+    |_  aug_imgs -directory with augmented train input images
+    |_  aug_masks -directory with augmented train masks (labels)
+```
+
 This model was trained from scratch with 5k images and scored a [Dice coefficient](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient) of 0.988423 on over 100k test images.
 
 It can be easily used for multiclass segmentation, portrait segmentation, medical segmentation, ...
