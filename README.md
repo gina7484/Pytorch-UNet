@@ -21,28 +21,18 @@ Customized implementation of the [U-Net](https://arxiv.org/abs/1505.04597) in Py
 
 ## Getting Started
 
-1. [Install Docker 19.03 or later:](https://docs.docker.com/get-docker/)
+1. [Install CUDA](https://developer.nvidia.com/cuda-downloads)
+
+2. [Install PyTorch](https://pytorch.org/get-started/locally/)
+
+3. Clone the directory:
 ```bash
-curl https://get.docker.com | sh && sudo systemctl --now enable docker
-```
-2. [Install the NVIDIA container toolkit:](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-```bash
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-sudo apt-get update
-sudo apt-get install -y nvidia-docker2
-sudo systemctl restart docker
-```
-3. [Download and run the image:](https://hub.docker.com/repository/docker/milesial/unet)
-```bash
-sudo docker run --rm --shm-size=8g --ulimit memlock=-1 --gpus all -it milesial/unet
+git clone https://github.com/gina7484/Pytorch-UNet.git
 ```
 
-4. Download the data and run training:
+4. Install dependencies:
 ```bash
-bash scripts/download_data.sh
-python train.py --amp
+pip install -r requirements.txt
 ```
 
 ## Description
